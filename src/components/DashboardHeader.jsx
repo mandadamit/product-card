@@ -1,4 +1,3 @@
-import React from 'react'
 import { Link, useNavigate } from 'react-router-dom';
 import { NavLink } from 'react-router-dom';
 
@@ -6,7 +5,8 @@ function DashboardHeader() {
     const navigate = useNavigate()
 
     const handleLogout = () => {
-        localStorage.removeItem('token')
+        localStorage.removeItem('accessToken')
+        localStorage.removeItem('refreshToken')
         localStorage.removeItem('user')
         navigate('/login');
     }

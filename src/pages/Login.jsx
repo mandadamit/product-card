@@ -12,22 +12,17 @@ function Login() {
 
     const onSubmit = async (data) => {
     try {
-        const response = await axios.post(
-        'https://dummyjson.com/auth/login',
-        {
-            username: data.username,
-            password: data.password,
-        },
-        {
-            headers: { "Content-Type": "application/json" }
-        }
+        const response = await axios.post('https://dummyjson.com/auth/login',
+            {username: data.username,password: data.password,},
+            {headers: { "Content-Type": "application/json" }}
         );
-
-        if (response.data && response.data.token) {
-        toast.success('Login successful!');
-        localStorage.setItem('token', response.data.token);
-        localStorage.setItem('user', JSON.stringify(response.data));
-        setTimeout(() => navigate('/dashboard'), 2000);
+        console.log("Response:", response.data);
+        if (response.data && response.data.accessToken) {
+            toast.success('Login successful!');
+            localStorage.setItem('accessToken', response.data.accessToken);
+            localStorage.setItem('refreshToken', response.data.refreshToken);
+            localStorage.setItem('user', JSON.stringify(response.data));
+            setTimeout(() => navigate('/dashboard'), 2000);
         }
     } catch (err) {
         console.error("Error:", err.response?.data || err.message);
